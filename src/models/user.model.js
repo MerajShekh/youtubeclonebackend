@@ -33,12 +33,22 @@ const userSchema = new Schema(
     coverImage: {
       type: String, // cloudinay url
     },
-    watchHistory: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Video",
-      },
-    ],
+    watchHistory: {
+      _id: false,
+      type: [
+        {
+          video: {
+            type: Schema.Types.ObjectId,
+            ref: "Video",
+          },
+          watchedAt: {
+            type: Date,
+            default: Date.now,
+          },
+        },
+      ],
+    },
+
     password: {
       type: String,
       required: [true, "Password is required"],
